@@ -36,16 +36,12 @@ const SignupPage = () => {
     try {
       const { data } = await axios.post("/api/auth/signup", formData);
       setMessage(data.message || "Account created successfully!");
-
       setFormData({
         fullName: "",
         userName: "",
         email: "",
         password: "",
       });
-
-      // Optional redirect
-      // window.location.href = "/login";
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
       if (error.response?.data) {
@@ -59,10 +55,10 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md border border-gray-200">
-        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-          Create Account
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-white px-4">
+      <div className="bg-white p-8 rounded-xl shadow-sm w-full max-w-md border border-purple-100">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-purple-700">
+          Create Your Account
         </h2>
 
         {message && (
@@ -86,7 +82,7 @@ const SignupPage = () => {
               placeholder="e.g. Muhammad Huzaifa"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
+              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
               required
             />
           </div>
@@ -99,7 +95,7 @@ const SignupPage = () => {
               placeholder="Choose a username"
               value={formData.userName}
               onChange={handleChange}
-              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
+              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
               required
             />
           </div>
@@ -112,7 +108,7 @@ const SignupPage = () => {
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
+              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
               required
             />
           </div>
@@ -125,7 +121,7 @@ const SignupPage = () => {
               placeholder="Minimum 8 characters"
               value={formData.password}
               onChange={handleChange}
-              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-300 transition"
+              className="w-full mt-1 border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
               required
             />
           </div>
@@ -133,7 +129,7 @@ const SignupPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gray-800 hover:bg-gray-900 text-white py-2 rounded-md font-medium mt-4 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md font-medium mt-4 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
@@ -143,7 +139,7 @@ const SignupPage = () => {
           Already have an account?{" "}
           <a
             href="/signin"
-            className="text-gray-800 hover:text-black font-medium underline underline-offset-2"
+            className="text-purple-700 hover:text-purple-800 font-medium underline underline-offset-2"
           >
             Sign in
           </a>

@@ -9,7 +9,9 @@ import { Progress } from "@/components/ui/progress";
 export default function Dashboard() {
   return (
     <main className="min-h-screen w-full bg-white px-12 py-6 text-gray-900 font-[var(--font-geist-sans)]">
-      <div className="grid grid-cols-[160px_1fr_420px] gap-10 items-start">
+      {/* Full 3-column layout — fixed widths */}
+      <div className="grid grid-cols-[160px_1fr_480px] gap-10 items-start w-full">
+        {/* ---------------- Sidebar ---------------- */}
         <aside className="bg-white border border-gray-200 flex flex-col items-center py-12 space-y-14 h-screen sticky top-0 rounded-2xl">
           <div className="flex flex-col items-center gap-12">
             <div className="p-4 rounded-xl hover:bg-purple-50 cursor-pointer transition">
@@ -29,7 +31,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-    
           <div className="mt-auto mb-4">
             <div className="w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center text-white font-semibold text-lg">
               HM
@@ -37,8 +38,8 @@ export default function Dashboard() {
           </div>
         </aside>
 
-        {/* ---------------- Main Section ---------------- */}
-        <section className="flex flex-col gap-10 min-h-screen">
+        {/* ---------------- Main Section (WIDE CENTER) ---------------- */}
+        <section className="flex flex-col gap-10 min-h-screen w-full">
           {/* Header */}
           <header>
             <h1 className="text-5xl font-bold text-purple-700 tracking-tight">Health Mate</h1>
@@ -48,7 +49,7 @@ export default function Dashboard() {
           </header>
 
           {/* Info Cards */}
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-8 w-full">
             {[
               {
                 title: "Overall Health Score",
@@ -127,27 +128,26 @@ export default function Dashboard() {
         </section>
 
         {/* ---------------- Chat Panel ---------------- */}
-      <aside className="bg-white border border-gray-200 rounded-2xl sticky top-0 p-8 flex flex-col h-screen w-[480px]">
-  <h2 className="text-2xl font-semibold mb-8 text-center text-purple-700">
-    AI Health Assistant
-  </h2>
+        <aside className="bg-white border border-gray-200 rounded-2xl sticky top-0 p-8 flex flex-col h-screen w-[480px]">
+          <h2 className="text-2xl font-semibold mb-8 text-center text-purple-700">
+            AI Health Assistant
+          </h2>
 
-  {/* Chat messages area */}
-  <div className="flex-1 overflow-y-auto min-h-0">
-    <ChatPanel />
-  </div>
+          {/* Chat messages area */}
+          <div className="flex-1 overflow-y-auto min-h-0">
+            <ChatPanel />
+          </div>
 
-  {/* Bottom action buttons */}
-  <div className="mt-8 flex gap-4">
-    <button className="flex-1 py-3.5 rounded-lg bg-purple-600 text-white text-base font-medium hover:bg-purple-700 transition">
-      New Consultation
-    </button>
-    <button className="w-12 h-12 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center text-xl">
-      ⚙️
-    </button>
-  </div>
-</aside>
-
+          {/* Bottom action buttons */}
+          <div className="mt-8 flex gap-4">
+            <button className="flex-1 py-3.5 rounded-lg bg-purple-600 text-white text-base font-medium hover:bg-purple-700 transition">
+              New Consultation
+            </button>
+            <button className="w-12 h-12 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center text-xl">
+              ⚙️
+            </button>
+          </div>
+        </aside>
       </div>
     </main>
   );
