@@ -1,103 +1,154 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import HealthChart from "@/components/charts/HealthChart";
+import ChatPanel from "@/components/chat/ChatPanel";
+import { Card } from "@/components/ui/card";
+import { Settings, Activity, Calendar, User } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+
+export default function Dashboard() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="min-h-screen w-full bg-white px-12 py-6 text-gray-900 font-[var(--font-geist-sans)]">
+      <div className="grid grid-cols-[160px_1fr_420px] gap-10 items-start">
+        <aside className="bg-white border border-gray-200 flex flex-col items-center py-12 space-y-14 h-screen sticky top-0 rounded-2xl">
+          <div className="flex flex-col items-center gap-12">
+            <div className="p-4 rounded-xl hover:bg-purple-50 cursor-pointer transition">
+              <Activity size={32} className="text-purple-600" />
+            </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <div className="p-4 rounded-xl hover:bg-purple-50 cursor-pointer transition">
+              <Calendar size={28} className="text-gray-500 hover:text-purple-600" />
+            </div>
+
+            <div className="p-4 rounded-xl hover:bg-purple-50 cursor-pointer transition">
+              <User size={28} className="text-gray-500 hover:text-purple-600" />
+            </div>
+
+            <div className="p-4 rounded-xl hover:bg-purple-50 cursor-pointer transition">
+              <Settings size={28} className="text-gray-500 hover:text-purple-600" />
+            </div>
+          </div>
+
+    
+          <div className="mt-auto mb-4">
+            <div className="w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center text-white font-semibold text-lg">
+              HM
+            </div>
+          </div>
+        </aside>
+
+        {/* ---------------- Main Section ---------------- */}
+        <section className="flex flex-col gap-10 min-h-screen">
+          {/* Header */}
+          <header>
+            <h1 className="text-5xl font-bold text-purple-700 tracking-tight">Health Mate</h1>
+            <p className="text-gray-500 mt-2 text-lg">
+              Your AI-powered health companion for a smarter lifestyle.
+            </p>
+          </header>
+
+          {/* Info Cards */}
+          <div className="grid grid-cols-3 gap-8">
+            {[
+              {
+                title: "Overall Health Score",
+                value: "98.2%",
+                progress: 98,
+                note: "Last updated: 2h ago",
+              },
+              {
+                title: "Average Sleep",
+                value: "7h 42m",
+                progress: 75,
+                note: "This week",
+              },
+              {
+                title: "Active Minutes",
+                value: "314",
+                progress: 62,
+                note: "Goal: 500 min/month",
+              },
+            ].map((card, i) => (
+              <Card
+                key={i}
+                className="bg-white border border-gray-200 rounded-2xl p-8 transition hover:border-purple-200"
+              >
+                <p className="text-base text-gray-500">{card.title}</p>
+                <h3 className="text-4xl font-bold text-purple-700 mt-3">{card.value}</h3>
+                <Progress value={card.progress} className="mt-6" />
+                <p className="text-md text-gray-400 mt-3">{card.note}</p>
+              </Card>
+            ))}
+          </div>
+
+          {/* Chart Section */}
+          <Card className="bg-white border border-gray-200 rounded-2xl p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-semibold text-purple-700">Health Overview</h3>
+              <p className="text-sm text-gray-400">Weekly summary</p>
+            </div>
+            <HealthChart />
+          </Card>
+
+          {/* Sleep Table */}
+          <Card className="bg-white border border-gray-200 rounded-2xl p-8">
+            <div className="flex justify-between text-base text-gray-500 mb-4 font-medium">
+              <span>Sleep Duration</span>
+              <span>Sleep Score</span>
+            </div>
+
+            {[
+              { time: "8h 33m", score: "Excellent" },
+              { time: "7h 22m", score: "Good" },
+              { time: "6h 19m", score: "Fair" },
+              { time: "5h 13m", score: "Poor" },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="flex justify-between items-center py-5 border-b border-gray-100 last:border-0"
+              >
+                <p className="text-gray-800 text-lg font-medium">{item.time}</p>
+                <p
+                  className={`font-semibold text-lg ${
+                    item.score === "Excellent"
+                      ? "text-purple-700"
+                      : item.score === "Good"
+                      ? "text-purple-500"
+                      : item.score === "Fair"
+                      ? "text-yellow-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {item.score}
+                </p>
+              </div>
+            ))}
+          </Card>
+        </section>
+
+        {/* ---------------- Chat Panel ---------------- */}
+      <aside className="bg-white border border-gray-200 rounded-2xl sticky top-0 p-8 flex flex-col h-screen w-[480px]">
+  <h2 className="text-2xl font-semibold mb-8 text-center text-purple-700">
+    AI Health Assistant
+  </h2>
+
+  {/* Chat messages area */}
+  <div className="flex-1 overflow-y-auto min-h-0">
+    <ChatPanel />
+  </div>
+
+  {/* Bottom action buttons */}
+  <div className="mt-8 flex gap-4">
+    <button className="flex-1 py-3.5 rounded-lg bg-purple-600 text-white text-base font-medium hover:bg-purple-700 transition">
+      New Consultation
+    </button>
+    <button className="w-12 h-12 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center text-xl">
+      ⚙️
+    </button>
+  </div>
+</aside>
+
+      </div>
+    </main>
   );
 }
