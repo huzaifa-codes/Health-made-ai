@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -36,7 +36,7 @@ const LoginPage = () => {
       setMessage(data.message || "Sign in successful");
       if (data) router.push("/");
     } catch (err) {
-      const error = err as AxiosError<{ error: string }>;
+      const error = err as AxiosError<{ error?: string }>;
       if (error.response?.data) {
         setMessage(error.response.data.error || "Invalid email or password");
       } else {
@@ -57,7 +57,7 @@ const LoginPage = () => {
         {message && (
           <p
             className={`text-center mb-4 text-sm ${
-              message.includes("successful")
+              typeof message === "string" && message.toLowerCase().includes("success")
                 ? "text-purple-600"
                 : "text-red-500"
             }`}
@@ -68,9 +68,7 @@ const LoginPage = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="text-sm text-gray-600 font-medium">
-              Email Address
-            </label>
+            <label className="text-sm text-gray-600 font-medium">Email Address</label>
             <input
               type="email"
               name="email"
@@ -83,9 +81,7 @@ const LoginPage = () => {
           </div>
 
           <div>
-            <label className="text-sm text-gray-600 font-medium">
-              Password
-            </label>
+            <label className="text-sm text-gray-600 font-medium">Password</label>
             <input
               type="password"
               name="password"

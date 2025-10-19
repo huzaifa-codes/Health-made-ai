@@ -19,7 +19,7 @@ const SignupPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -43,7 +43,7 @@ const SignupPage = () => {
         password: "",
       });
     } catch (err) {
-      const error = err as AxiosError<{ error: string }>;
+      const error = err as AxiosError<{ error?: string }>;
       if (error.response?.data) {
         setMessage(error.response.data.error || "Something went wrong");
       } else {
@@ -64,7 +64,7 @@ const SignupPage = () => {
         {message && (
           <p
             className={`text-center mb-4 text-sm ${
-              message.toLowerCase().includes("success")
+              typeof message === "string" && message.toLowerCase().includes("success")
                 ? "text-green-600"
                 : "text-red-500"
             }`}
