@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
 interface LoginForm {
@@ -10,38 +10,24 @@ interface LoginForm {
 }
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState<LoginForm>({
-    email: "",
-    password: "",
-  });
-
+  const [formData, setFormData] = useState<LoginForm>({ email: "", password: "" });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     try {
       const { data } = await axios.post("/api/auth/signin", formData);
-      setMessage(data.message || "Sign in successful");
-      if (data) router.push("/");
+      if (data) router.push("/"); // successful login redirect
     } catch (err) {
-      const error = err as AxiosError<{ error?: string }>;
-      if (error.response?.data) {
-        setMessage(error.response.data.error || "Invalid email or password");
-      } else {
-        setMessage("Network error");
-      }
+      // koi message nahi dikhayenge
+      console.error(err);
     }
 
     setLoading(false);
@@ -50,21 +36,7 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 px-4">
       <div className="bg-white p-8 rounded-2xl border border-purple-100 w-full max-w-md shadow-sm">
-        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700 tracking-tight">
-          Health Mate
-        </h2>
-
-        {message && (
-          <p
-            className={`text-center mb-4 text-sm ${
-              typeof message === "string" && message.toLowerCase().includes("success")
-                ? "text-purple-600"
-                : "text-red-500"
-            }`}
-          >
-            {message}
-          </p>
-        )}
+        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700 tracking-tight">Health Mate</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
@@ -104,10 +76,7 @@ const LoginPage = () => {
 
         <p className="text-sm text-gray-600 text-center mt-6">
           Don’t have an account?{" "}
-          <a
-            href="/signup"
-            className="text-purple-700 hover:text-purple-800 font-medium underline underline-offset-2"
-          >
+          <a href="/signup" className="text-purple-700 hover:text-purple-800 font-medium underline underline-offset-2">
             Sign up
           </a>
         </p>
