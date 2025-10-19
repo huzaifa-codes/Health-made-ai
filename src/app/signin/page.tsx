@@ -4,18 +4,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-interface LoginForm {
-  email: string;
-  password: string;
-}
-
 const LoginPage = () => {
-  const [formData, setFormData] = useState<LoginForm>({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,10 +19,9 @@ const LoginPage = () => {
 
     try {
       const { data } = await axios.post("/api/auth/signin", formData);
-      if (data) router.push("/"); // successful login redirect
-    } catch (err) {
-      // koi message nahi dikhayenge
-      console.error(err);
+      if (data) router.push("/");
+    } catch {
+      // network/auth error silently ignored
     }
 
     setLoading(false);
@@ -36,7 +30,9 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100 px-4">
       <div className="bg-white p-8 rounded-2xl border border-purple-100 w-full max-w-md shadow-sm">
-        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700 tracking-tight">Health Mate</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700 tracking-tight">
+          Health Mate
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
@@ -76,7 +72,10 @@ const LoginPage = () => {
 
         <p className="text-sm text-gray-600 text-center mt-6">
           Don’t have an account?{" "}
-          <a href="/signup" className="text-purple-700 hover:text-purple-800 font-medium underline underline-offset-2">
+          <a
+            href="/signup"
+            className="text-purple-700 hover:text-purple-800 font-medium underline underline-offset-2"
+          >
             Sign up
           </a>
         </p>
